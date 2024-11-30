@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+25&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark gradient-navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Stocker</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/education">Education</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <h1 class="text-center mb-5">Education Resources</h1>
+        <p class="text-center mb-5">Explore resources to enhance your financial knowledge and investment strategies.</p>
+
+        <div class="row g-4">
+            <!-- Basic Investing -->
+            <div class="col-md-4">
+                <div class="card education-card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Basic Investing</h5>
+                        <p class="card-text">Learn the basics of investing, including stocks, bonds, and mutual funds.</p>
+                        <a href="https://www.investing.com/education/" class="btn btn-primary" target="_blank">Learn More</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Why are stocks important? -->
+            <div class="col-md-4">
+                <div class="card education-card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Why Are Stocks Important?</h5>
+                        <p class="card-text">Stocks offer potential for growth over time, building savings, protecting from inflation, and maximizing income.</p>
+                        <a href="https://www6.royalbank.com/en/di/hubs/investing-academy/chapter/key-benefits-of-investing-in-stocks/jv7atg13/jv7atg1j#:~:text=Owning%20stocks%20in%20different%20companies,investing%20in%20the%20stock%20market" class="btn btn-primary" target="_blank">Learn More</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main types of stocks -->
+            <div class="col-md-4">
+                <div class="card education-card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Main Types of Stocks</h5>
+                        <p class="card-text">Explore the different types of stocks, including common, preferred, growth, and income stocks.</p>
+                        <a href="https://www.bankrate.com/investing/types-of-stock/" class="btn btn-primary" target="_blank">Learn More</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Why invest long-term? -->
+            <div class="col-md-4">
+                <div class="card education-card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Why You Should Invest Long-Term</h5>
+                        <p class="card-text">Discover the benefits of a long-term investment strategy, focusing on sustainable growth.</p>
+                        <a href="https://www.usbank.com/investing/financial-perspectives/investing-insights/buy-and-hold-long-term-investment-strategies.html" class="btn btn-primary" target="_blank">Learn More</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Where to start investing -->
+            <div class="col-md-4">
+                <div class="card education-card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Where Can I Start Investing?</h5>
+                        <p class="card-text">Find the best online brokers to begin your stock trading journey.</p>
+                        <a href="https://www.bankrate.com/investing/best-online-brokers-for-stock-trading/" class="btn btn-primary" target="_blank">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="news-section mt-5">
+        <h2 class="text-center text-light">Latest Financial News</h2>
+        <div class="row">
+            <% newsData.forEach(news => { %>
+                <div class="col-md-4 mb-4">
+                    <div class="card news-card">
+                        <img src="<%= news.image_url %>" class="card-img-top" alt="News Image">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= news.title %></h5>
+                            <p class="card-text"><%= news.snippet %></p>
+                            <a href="<%= news.url %>" target="_blank" class="btn btn-light btn-sm">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "stocker",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "chart.js": "^4.4.4",
+    "chartjs-adapter-date-fns": "^3.0.0",
+    "chartjs-adapter-moment": "^1.0.1",
+    "chartjs-chart-financial": "^0.2.1",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "moment": "^2.30.1"
+  }
+}

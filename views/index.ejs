@@ -45,12 +45,16 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <h5 class="card-title mb-0"><%= stock.meta.symbol %></h5>
-                                    <select class="form-select ms-2" style="width: auto;">
+                                    <select class="form-select ms-2 stock-dropdown" style="width: auto;" data-chart-index="<%= index %>">
                                         <option selected value="<%= stock.meta.symbol %>"><%= stock.meta.symbol %></option>
-                                        <!-- Add more options if needed -->
                                         <option value="AAPL">AAPL</option>
                                         <option value="GOOGL">GOOGL</option>
                                         <option value="MSFT">MSFT</option>
+                                        <option value="AMZN">AMZN</option>
+                                        <option value="META">META</option>
+                                        <option value="WMT">WMT</option>
+                                        <option value="COST">COST</option>
+                                        <option value="ACN">ACN</option>
                                     </select>
                                 </div>
                                 <div class="chart-container">
@@ -177,5 +181,65 @@
             });
         });
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          document.querySelectorAll('.stock-dropdown').forEach(dropdown => {
+            dropdown.addEventListener('change', async (event) => {
+              const selectedSymbol = event.target.value;
+              const chartIndex = event.target.getAttribute('data-chart-index');
+              
+              try {
+                // Show loading state
+                const chartCanvas = document.getElementById(`chart-${chartIndex}`);
+                const volumeChartCanvas = document.getElementById(`volume-chart-${chartIndex}`);
+                chartCanvas.style.opacity = '0.5';
+                volumeChartCanvas.style.opacity = '0.5';
+        
+                // Fetch new stock data
+                const response = await fetch(`/stock-data?symbol=${selectedSymbol}`);
+                const stockData = await response.json();
+        
+                if (stockData && stockData.values) {
+                  // Prepare data
+                  const labels = stockData.values.map(value => moment(value.datetime));
+                  const closingPrices = stockData.values.map(value => parseFloat(value.close)).reverse();
+                  const volumeData = stockData.values.map(value => parseInt(value.volume)).reverse();
+        
+                  // Update price chart
+                  const priceChart = Chart.getChart(`chart-${chartIndex}`);
+                  priceChart.data.labels = labels;
+                  priceChart.data.datasets[0].data = closingPrices;
+                  priceChart.update();
+        
+                  // Update volume chart
+                  const volumeChart = Chart.getChart(`volume-chart-${chartIndex}`);
+                  volumeChart.data.labels = labels;
+                  volumeChart.data.datasets[0].data = volumeData;
+                  volumeChart.update();
+        
+                  // Update card title
+                  const cardTitle = event.target.parentElement.querySelector('.card-title');
+                  cardTitle.textContent = selectedSymbol;
+                }
+        
+                // Restore opacity
+                chartCanvas.style.opacity = '1';
+                volumeChartCanvas.style.opacity = '1';
+              } catch (error) {
+                console.error('Error updating charts:', error);
+                // Show error state
+                const cardBody = event.target.closest('.card-body');
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'alert alert-danger mt-2';
+                errorDiv.textContent = 'Failed to update chart data';
+                cardBody.appendChild(errorDiv);
+                setTimeout(() => errorDiv.remove(), 3000);
+              }
+            });
+          });
+        });
+        </script>
+    
 </body>
 </html>

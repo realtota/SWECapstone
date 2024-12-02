@@ -34,6 +34,24 @@ app.get('/', async (req, res) => {
   }
 });
 
+app.get('/stock-data', async (req, res) => {
+  try {
+    const symbol = req.query.symbol;
+    if (!symbol) {
+      return res.status(400).json({ error: 'Symbol is required' });
+    }
+
+    const response = await axios.get(
+      `https://api.twelvedata.com/time_series?symbol=${symbol}&interval=1day&apikey=${API_KEY_TWELVEDATA}`
+    );
+
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching stock data:', error);
+    res.status(500).json({ error: 'Failed to fetch stock data' });
+  }
+});
+
 // New /education route with news feed
 app.get('/education', async (req, res) => {
   try {

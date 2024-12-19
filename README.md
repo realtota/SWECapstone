@@ -1,2 +1,3 @@
 # SWECapstone
-Make sure to download Node, chart.js and any other dependencies.
+For the set up just cloning the repository, there isnt any set up required. 
+It works as is. 
